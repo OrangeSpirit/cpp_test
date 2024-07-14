@@ -9,6 +9,8 @@ class List {
     ~List();
 
     void push_back(T data);
+    void pop_front();
+    void clear();
     int GetSize() {return Size;};
     T& operator[](const int index);
 
@@ -38,7 +40,8 @@ List<T>::List() {
 
 template<typename T>
 List<T>::~List() {
-
+  cout << "destructor" << endl;
+  clear();
 }
 
 template <typename T>
@@ -53,6 +56,21 @@ void List<T>::push_back(T data) {
     current->pNext = new Node<T>(data);
   }
   Size++;
+}
+
+template <typename T>
+void List<T>::pop_front() {
+  Node<T>* temp = head;
+  head = head->pNext;
+  delete temp;
+  Size--;
+}
+
+template <typename T>
+void List<T>::clear() {
+  while (Size) {
+    pop_front();
+  }
 }
 
 template <typename T>
@@ -76,7 +94,7 @@ int main() {
   lst.push_back(20);
 
   cout << "Size = " << lst.GetSize() << endl;
-  lst.push_back(0);
+  lst.push_back(33);
   lst.push_back(99);
   cout << "Size = " << lst.GetSize() << endl;
   lst.push_back(111);
@@ -84,5 +102,17 @@ int main() {
 
   cout << "lst[2] = " << lst[2] << endl;
   cout << "lst[6] = " << lst[5] << endl;
+
+  lst.pop_front();
+  cout << "Size = " << lst.GetSize() << endl;
+  cout << "lst[2] = " << lst[2] << endl;
+  
+  lst.pop_front();
+  cout << "Size = " << lst.GetSize() << endl;
+  cout << "lst[2] = " << lst[2] << endl;
+
+  lst.clear();
+  cout << "Size = " << lst.GetSize() << endl;
+
   return 0;
 }
