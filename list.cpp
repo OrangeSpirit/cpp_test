@@ -14,6 +14,11 @@ class List {
     int GetSize() {return Size;};
     T& operator[](const int index);
 
+    void push_front(T data);
+    //void pop_back();
+    void insert(T value, int index);
+    //void removeAt(int index);
+
     
   private:
     template<typename N>
@@ -87,6 +92,17 @@ T& List<T>::operator[](const int index) {
   return current->data;
 }
 
+template <typename T>
+void List<T>::push_front(T data) {
+  head = new Node<T>(data, head);
+  Size++;
+}
+
+template <typename T>
+void List<T>::insert(T data, int index) {
+  Node<T>* previus
+}
+
 int main() {
   List<int> lst;
   lst.push_back(5);
@@ -111,8 +127,12 @@ int main() {
   cout << "Size = " << lst.GetSize() << endl;
   cout << "lst[2] = " << lst[2] << endl;
 
-  lst.clear();
+  //lst.clear();
   cout << "Size = " << lst.GetSize() << endl;
 
+  cout << "lst[0] = " << lst[0] << endl;
+  lst.push_front(555);
+  cout << "Size after add = " << lst.GetSize() << endl;
+  cout << "lst[0] = " << lst[0] << endl;
   return 0;
 }
