@@ -16,7 +16,7 @@ class List {
 
     void push_front(T data);
     //void pop_back();
-    void insert(T value, int index);
+    void insert(T data, int index);
     //void removeAt(int index);
 
     
@@ -100,7 +100,19 @@ void List<T>::push_front(T data) {
 
 template <typename T>
 void List<T>::insert(T data, int index) {
-  Node<T>* previus
+  if (index == 0) {
+    push_front(data);
+  } else {
+    Node<T>* previus = this->head;
+    for (int i = 0; i < index - 1; i++) {
+      previus = previus->pNext;
+    }
+
+    Node<T>* newNode = new Node<T>(data, previus->pNext);
+    previus->pNext = newNode;
+
+    Size++;
+  }
 }
 
 int main() {
