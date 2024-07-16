@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+// #include <string>
 using namespace std;
 
 template<typename T>
@@ -15,9 +15,9 @@ class List {
     T& operator[](const int index);
 
     void push_front(T data);
-    //void pop_back();
+    void pop_back();
     void insert(T data, int index);
-    //void removeAt(int index);
+    void removeAt(int index);
 
     
   private:
@@ -99,6 +99,11 @@ void List<T>::push_front(T data) {
 }
 
 template <typename T>
+void List<T>::pop_back() {
+  removeAt(Size - 1);
+}
+
+template <typename T>
 void List<T>::insert(T data, int index) {
   if (index == 0) {
     push_front(data);
@@ -112,6 +117,23 @@ void List<T>::insert(T data, int index) {
     previus->pNext = newNode;
 
     Size++;
+  }
+}
+
+template <typename T>
+void List<T>::removeAt(int index) {
+  if (index == 0) {
+    pop_front();
+  } else {
+    Node<T>* previous = this->head;
+    for (int i = 0; i < index - 1; i++) {
+      previous = previous->pNext;
+    }
+    Node<T>* toDelete = previous->pNext;
+    previous->pNext = toDelete->pNext;
+    delete toDelete;
+    
+    Size--;
   }
 }
 
@@ -132,19 +154,37 @@ int main() {
   cout << "lst[6] = " << lst[5] << endl;
 
   lst.pop_front();
-  cout << "Size = " << lst.GetSize() << endl;
+  cout << "Size after pop_front = " << lst.GetSize() << endl;
   cout << "lst[2] = " << lst[2] << endl;
   
   lst.pop_front();
-  cout << "Size = " << lst.GetSize() << endl;
+  cout << "Size after pop_front = " << lst.GetSize() << endl;
   cout << "lst[2] = " << lst[2] << endl;
 
   //lst.clear();
-  cout << "Size = " << lst.GetSize() << endl;
+  // cout << "Size = " << lst.GetSize() << endl;
 
   cout << "lst[0] = " << lst[0] << endl;
   lst.push_front(555);
-  cout << "Size after add = " << lst.GetSize() << endl;
+  cout << "Size after push_front = " << lst.GetSize() << endl;
   cout << "lst[0] = " << lst[0] << endl;
+
+  cout << "Size before insert = " << lst.GetSize() << endl;
+  cout << "lst[3] = " << lst[3] << endl;
+  lst.insert(888, 3);
+  cout << "Size after insert = " << lst.GetSize() << endl;
+  cout << "lst[3] = " << lst[3] << endl;
+
+  lst.removeAt(3);
+  cout << "Size after remove = " << lst.GetSize() << endl;
+  cout << "lst[3] = " << lst[3] << endl;
+
+  int Size = lst.GetSize();
+  cout << "lst[Size] = " << lst[Size - 1] << endl;
+  lst.pop_back();
+  cout << "Size after pop_back = " << lst.GetSize() << endl;
+  Size = lst.GetSize();
+  cout << "lst[Size] = " << lst[Size - 1] << endl;
+
   return 0;
 }
