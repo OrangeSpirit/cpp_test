@@ -17,6 +17,14 @@ valgrind_long:
 	gcc -std=c++17 -Wall -Werror -Wextra -pedantic -g $(file_test) -lstdc++ -lm
 	valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt ./a.out
 
-reference:
+reference:clean
 	gcc -std=c++17 -Wall -Werror -Wextra -pedantic -g reference.cpp -lstdc++ -lm
+	./a.out
+
+mesage:clean
+	gcc -std=c++17 -Wall -Werror -Wextra -pedantic -g mesage.cpp -lstdc++ -lm
+	./a.out
+
+set:clean
+	gcc -std=c++17 -Wall -Werror -Wextra -pedantic -g set.cpp -lstdc++ -lm
 	./a.out
